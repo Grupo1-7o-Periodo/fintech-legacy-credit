@@ -250,3 +250,31 @@ Este projeto é parte de um exercício de refatoração de código legado.
 
 Desenvolvido como exemplo de aplicação Spring Boot com boas práticas de desenvolvimento.
 
+
+
+
+## Arthur Ritzel
+---
+
+# AnaliseCreditoService
+* 8 complexidades
+* **Long Method** – O método analisarSolicitacao concentra validações, regras de negócio, controle de fluxo e simulação externa em um único bloco grande.
+* **Arrow Code (If/Else Aninhado)** – Múltiplos níveis de if encadeados aumentam a complexidade sintomática e dificultam leitura e manutenção.
+* **Primitive Obsession** – Uso de String para tipoConta ("PF", "PJ") em vez de enum ou objeto de domínio.
+* **Magic Numbers** – Valores fixos como 500, 5000, 800, 50000, 700 representam regras de negócio sem significado explícito.
+* **Tight Coupling** – Uso direto de System.out.println, Thread.sleep e new Date() acopla regra de negócio à infraestrutura.
+* **Hardcoded Values** – O método processarLote chama analisarSolicitacao com valores fixos, reduzindo flexibilidade.
+
+---
+
+# ProcessadorVendaService
+* 6 complexidades
+* **Long Method** – O método processar executa validação, cálculo de frete, cálculo de imposto, persistência simulada e envio de recibo em um único método.
+* **Large Class / Baixa Coesão** – A classe possui múltiplas responsabilidades (regra de negócio, cálculo fiscal, logística e persistência).
+* **Arrow Code (If/Else Excessivo)** – Uso de condicionais para definir frete e imposto aumenta complexidade e dificulta extensão futura.
+* **Primitive Obsession** – Uso de String para tipo ("PRODUTO", "SERVICO") e CEP como critério lógico em vez de modelagem orientada ao domínio.
+* **Magic Numbers** – Percentuais fixos de imposto (0.18, 0.05) e valores de frete (10, 20, 50) estão hardcoded.
+* **Feature Envy** – Lógica de cálculo de frete baseada no CEP deveria estar em uma classe específica (ex: CalculadoraFrete).
+* **Divergent Change** – A classe pode mudar por motivos fiscais, logísticos ou de persistência, indicando múltiplos motivos de alteração.
+* **Tight Coupling** – Uso direto de System.out.println para simular banco e envio de recibo acopla negócio à infraestrutura.
+* * **SLQ INJECTION** – Concatenação de parametros direto na string de insert
