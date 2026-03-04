@@ -278,3 +278,25 @@ Desenvolvido como exemplo de aplicação Spring Boot com boas práticas de desen
 * **Divergent Change** – A classe pode mudar por motivos fiscais, logísticos ou de persistência, indicando múltiplos motivos de alteração.
 * **Tight Coupling** – Uso direto de System.out.println para simular banco e envio de recibo acopla negócio à infraestrutura.
 * * **SLQ INJECTION** – Concatenação de parametros direto na string de insert
+
+
+
+
+## Lucas Dreveck - Code Smells
+
+### AnaliseCreditoService.java
+
+1. Complexidade Cognitiva elevada (39);
+2. Função com múltiplas funcionalidades;
+3. Código duplicado;
+3. Dificuldade de adição e manutenção;
+4. Uso de métodos depreciados;
+5. Falta de disparo de erros juntamente a falta de uso de um logger apropriado;
+
+
+### ProcessadorVendaService.java
+
+1. Valores mágicos;
+2. Dificuldade de adição e manutenção;
+3. Falta de disparo de erros juntamente a falta de uso de um logger apropriado;
+
