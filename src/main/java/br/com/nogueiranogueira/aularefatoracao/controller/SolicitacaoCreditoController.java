@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Tag(name = "Solictações Controller", description = "Endpoints para análise e gerenciamento de solicitações de crédito")
 @RestController
 @RequestMapping("/solicitacoes")
 public class SolicitacaoCreditoController {
@@ -50,5 +51,21 @@ public class SolicitacaoCreditoController {
         response.put("status", "ok");
         response.put("mensagem", "Aplicação funcionando corretamente");
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping
+    public ResponseEntity<Map<String, String>> analiseCredito(@RequestBody List<SolicitacaoCreditoRecord> solicitacaoCreditoRecords) {
+        try {
+            processadorAnaliseCreditoService.processarLote(solicitacaoCreditoRecords);
+            Map<String, String> response = new HashMap<>();
+            response.put("mensagem", "Solicitações processadas com sucesso");
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            log.error("Erro ao processar solicitações", e);
+            Map<String, String> error = new HashMap<>();
+            error.put("erro", "Erro ao processar solicitações");
+            error.put("mensagem", e.getMessage());
+            return ResponseEntity.badRequest().body(error);
+        }
     }
 }
