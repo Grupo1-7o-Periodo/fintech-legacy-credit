@@ -1,4 +1,4 @@
-package br.com.nogueiranogueira.aularefatoracao.model.dto;
+package br.com.nogueiranogueira.aularefatoracao.dto;
 
 public record SolicitacaoCreditoRequest(
         String cliente,
