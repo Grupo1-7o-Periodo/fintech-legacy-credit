@@ -1,7 +1,7 @@
 package br.com.nogueiranogueira.aularefatoracao.service;
 
-import br.com.nogueiranogueira.aularefatoracao.model.dto.SolicitacaoCreditoRequest;
-import br.com.nogueiranogueira.aularefatoracao.service.strategy.AnaliseStrategy;
+import br.com.nogueiranogueira.aularefatoracao.dto.SolicitacaoCreditoRequest;
+import br.com.nogueiranogueira.aularefatoracao.factory.AnaliseCreditoFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -15,22 +15,11 @@ public class ProcessadorCreditoService {
 
     private static final Logger log = LoggerFactory.getLogger(ProcessadorCreditoService.class);
 
-    private final List<AnaliseStrategy> strategies;
-
-    public ProcessadorCreditoService(List<AnaliseStrategy> strategies) {
-        this.strategies = strategies;
-    }
-
     public boolean processarIndividual(SolicitacaoCreditoRequest solicitacao) {
         log.info("Consultando Bureau de Crédito Externo para: {}", solicitacao.cliente());
         consultarBureauExterno();
 
-        return strategies.stream()
-                .filter(strategy -> strategy.elegivel(solicitacao))
-                .findFirst()
-                .map(strategy -> strategy.analisar(solicitacao))
-                .orElseThrow(() -> new IllegalArgumentException(
-                        "Tipo de conta não suportado: " + solicitacao.tipoConta()));
+        return AnaliseCreditoFactory.obterEstrategia(solicitacao.tipoConta()).analisar(solicitacao);
     }
 
     public void processarLote(List<SolicitacaoCreditoRequest> solicitacoes) {
