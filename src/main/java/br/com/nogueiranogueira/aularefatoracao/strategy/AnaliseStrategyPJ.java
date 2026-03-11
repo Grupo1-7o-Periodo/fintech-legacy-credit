@@ -1,26 +1,37 @@
 package br.com.nogueiranogueira.aularefatoracao.strategy;
 
-import br.com.nogueiranogueira.aularefatoracao.dto.SolicitacaoCreditoRecord;
-import br.com.nogueiranogueira.aularefatoracao.dto.TipoConta;
+import br.com.nogueiranogueira.aularefatoracao.dto.SolicitacaoCreditoRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
-
+@Component
 public class AnaliseStrategyPJ implements AnaliseStrategy {
 
-    private static final BigDecimal LIMITE_PJ = new BigDecimal("50000");
+    private static final Logger log = LoggerFactory.getLogger(AnaliseStrategyPJ.class);
+
+    private static final int SCORE_MINIMO = 500;
+    private static final int SCORE_ALTO_VALOR = 700;
+    private static final double LIMITE_ALTO_VALOR = 50000.0;
 
     @Override
-    public boolean analisar(SolicitacaoCreditoRecord solicitacao) {
-        if (solicitacao.valor().compareTo(LIMITE_PJ) > 0 && solicitacao.score() < 700) {
-            System.out.println("PJ Reprovado: Risco corporativo.");
+    public boolean analisar(SolicitacaoCreditoRequest solicitacao) {
+        if (solicitacao.negativado()) {
+            log.warn("Reprovado PJ: cliente negativado");
             return false;
         }
-        System.out.println("PJ Aprovado.");
-        return true;
-    }
 
-    @Override
-    public boolean elegivel(SolicitacaoCreditoRecord solicitacao) {
-        return solicitacao.tipo().equals(TipoConta.PJ);
+        if (solicitacao.score() <= SCORE_MINIMO) {
+            log.warn("Reprovado PJ: score baixo ({})", solicitacao.score());
+            return false;
+        }
+
+        if (solicitacao.valor() > LIMITE_ALTO_VALOR && solicitacao.score() < SCORE_ALTO_VALOR) {
+            log.warn("Reprovado PJ: risco alto para valor elevado com score insuficiente");
+            return false;
+        }
+
+        log.info("Aprovado PJ: {}", solicitacao.cliente());
+        return true;
     }
 }

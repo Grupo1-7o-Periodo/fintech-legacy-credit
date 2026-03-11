@@ -1,38 +1,50 @@
 package br.com.nogueiranogueira.aularefatoracao.strategy;
 
-import br.com.nogueiranogueira.aularefatoracao.dto.SolicitacaoCreditoRecord;
-import br.com.nogueiranogueira.aularefatoracao.dto.TipoConta;
+import br.com.nogueiranogueira.aularefatoracao.dto.SolicitacaoCreditoRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 
+@Component
 public class AnaliseStrategyPF implements AnaliseStrategy {
 
-    private static final BigDecimal LIMITE_ALTO_VALOR = new BigDecimal("5000");
-    private static final int SCORE_MINIMO = 800;
+    private static final Logger log = LoggerFactory.getLogger(AnaliseStrategyPF.class);
+
+    private static final int SCORE_MINIMO = 500;
+    private static final int SCORE_ALTO_VALOR = 800;
+    private static final double LIMITE_ALTO_VALOR = 5000.0;
 
     @Override
-    public boolean analisar(SolicitacaoCreditoRecord solicitacao) {
-        // Regra 1: Valor alto com score baixo
-        if (solicitacao.valor().compareTo(LIMITE_ALTO_VALOR) > 0 && solicitacao.score() < SCORE_MINIMO) {
-            System.out.println("PF Reprovado: Risco alto.");
+    public boolean analisar(SolicitacaoCreditoRequest solicitacao) {
+        if (solicitacao.negativado()) {
+            log.warn("Reprovado PF: cliente negativado");
             return false;
         }
 
-        // Regra 2: Fim de semana (Usando Java Time API moderno)
-        DayOfWeek diaHoje = LocalDate.now().getDayOfWeek();
-        if (diaHoje == DayOfWeek.SATURDAY || diaHoje == DayOfWeek.SUNDAY) {
-            System.out.println("PF: Aprovação manual necessária no fim de semana.");
+        if (solicitacao.score() <= SCORE_MINIMO) {
+            log.warn("Reprovado PF: score baixo ({})", solicitacao.score());
             return false;
         }
 
-        System.out.println("PF Aprovado.");
+        if (solicitacao.valor() > LIMITE_ALTO_VALOR && solicitacao.score() < SCORE_ALTO_VALOR) {
+            log.warn("Reprovado PF: valor alto com score médio");
+            return false;
+        }
+
+        if (isFimDeSemana()) {
+            log.warn("Reprovado PF: aprovação manual necessária no fim de semana");
+            return false;
+        }
+
+        log.info("Aprovado PF: {}", solicitacao.cliente());
         return true;
     }
 
-    @Override
-    public boolean elegivel(SolicitacaoCreditoRecord solicitacao) {
-        return solicitacao.tipo().equals(TipoConta.PF);
+    private boolean isFimDeSemana() {
+        DayOfWeek dia = LocalDate.now().getDayOfWeek();
+        return dia == DayOfWeek.SATURDAY || dia == DayOfWeek.SUNDAY;
     }
 }

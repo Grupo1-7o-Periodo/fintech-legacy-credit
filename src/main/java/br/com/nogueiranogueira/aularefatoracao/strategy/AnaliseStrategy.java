@@ -1,10 +1,7 @@
 package br.com.nogueiranogueira.aularefatoracao.strategy;
 
-import br.com.nogueiranogueira.aularefatoracao.dto.SolicitacaoCreditoRecord;
+import br.com.nogueiranogueira.aularefatoracao.dto.SolicitacaoCreditoRequest;
 
 public interface AnaliseStrategy {
-
-    boolean analisar(SolicitacaoCreditoRecord solicitacao);
-    boolean elegivel(SolicitacaoCreditoRecord solicitacao);
-
+    boolean analisar(SolicitacaoCreditoRequest solicitacao);
 }
