@@ -2,7 +2,7 @@ package br.com.nogueiranogueira.aularefatoracao.service;
 
 import br.com.nogueiranogueira.aularefatoracao.dto.SolicitacaoCreditoRequest;
 import br.com.nogueiranogueira.aularefatoracao.service.factory.AnaliseCreditoFactory;
-import br.com.nogueiranogueira.aularefatoracao.service.strategy.AnaliseStrategy;
+import br.com.nogueiranogueira.aularefatoracao.service.strategy.analise.AnaliseStrategy;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
