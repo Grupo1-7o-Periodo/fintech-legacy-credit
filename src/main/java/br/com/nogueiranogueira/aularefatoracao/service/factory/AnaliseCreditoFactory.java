@@ -1,9 +1,9 @@
 package br.com.nogueiranogueira.aularefatoracao.service.factory;
 
 import br.com.nogueiranogueira.aularefatoracao.model.dto.TipoConta;
-import br.com.nogueiranogueira.aularefatoracao.service.strategy.AnaliseStrategy;
-import br.com.nogueiranogueira.aularefatoracao.service.strategy.AnaliseStrategyPF;
-import br.com.nogueiranogueira.aularefatoracao.service.strategy.AnaliseStrategyPJ;
+import br.com.nogueiranogueira.aularefatoracao.service.strategy.credito.AnaliseStrategy;
+import br.com.nogueiranogueira.aularefatoracao.service.strategy.credito.AnaliseStrategyPF;
+import br.com.nogueiranogueira.aularefatoracao.service.strategy.credito.AnaliseStrategyPJ;
 
 public class AnaliseCreditoFactory {
 

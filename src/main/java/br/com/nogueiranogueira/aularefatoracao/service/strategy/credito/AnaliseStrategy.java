@@ -1,4 +1,4 @@
-package br.com.nogueiranogueira.aularefatoracao.service.strategy;
+package br.com.nogueiranogueira.aularefatoracao.service.strategy.credito;
 
 import br.com.nogueiranogueira.aularefatoracao.model.dto.SolicitacaoCreditoRequest;
 
