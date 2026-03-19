@@ -34,6 +34,10 @@ public class SolicitacaoCredito {
     @Column(nullable = false)
     private Integer score;
 
+    @NotBlank(message = "CPF não pode ser vazio")
+    @Column(nullable = false)
+    private String cpf;
+
     @NotNull(message = "Status de negativação não pode ser nulo")
     @Column(nullable = false)
     private Boolean negativado;
