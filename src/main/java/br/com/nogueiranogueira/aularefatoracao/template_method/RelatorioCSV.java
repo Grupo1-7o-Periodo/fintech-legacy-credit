@@ -9,7 +9,7 @@ import java.util.List;
 public class RelatorioCSV extends GeradorRelatorioTemplate {
     @Override
     protected String formatarCabecalho() {
-        return "cpf,valor,status\n";
+        return "cpf;valor;status\n";
     }
 
     @Override
@@ -36,11 +36,11 @@ public class RelatorioCSV extends GeradorRelatorioTemplate {
     private String converterParaCsv(String linhaBruta) {
         String[] partes = linhaBruta.split(" - ");
         if (partes.length != 3) {
-            return linhaBruta.replace(" - ", ",");
+            return linhaBruta.replace(" - ", ";");
         }
         String cpf = partes[0];
         String valor = partes[1].replace("R$", "").trim();
         String status = partes[2];
-        return cpf + "," + valor + "," + status;
+        return cpf + ";" + valor + ";" + status;
     }
 }
