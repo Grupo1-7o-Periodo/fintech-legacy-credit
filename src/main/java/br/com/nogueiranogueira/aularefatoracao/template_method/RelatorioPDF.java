@@ -16,18 +16,18 @@ public class RelatorioPDF extends GeradorRelatorioTemplate {
     @Override
     protected String formatarCabecalho() {
         return """
-                RELATÓRIO DE CRÉDITO
-                --------------------
+                << FORMATO PDF BOLD >> RELATORIO OFICIAL DE CREDITO
+                ==================================================
                 """;
     }
 
     @Override
     protected String formatarCorpo(List<String> dados) {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder pdf = new StringBuilder();
         for (String linha : dados) {
-            sb.append("- ").append(linha).append('\n');
+            pdf.append("- Registro Auditado: ").append(linha).append("\n");
         }
-        return sb.toString();
+        return pdf.toString();
     }
 
     @Override
@@ -35,10 +35,13 @@ public class RelatorioPDF extends GeradorRelatorioTemplate {
         Path destino = Paths.get("target", "relatorios", "relatorio.pdf");
         try {
             Files.createDirectories(destino.getParent());
-            try (Document document = new Document(); FileOutputStream fos = new FileOutputStream(destino.toFile())) {
+            Document document = new Document();
+            try (FileOutputStream fos = new FileOutputStream(destino.toFile())) {
                 PdfWriter.getInstance(document, fos);
                 document.open();
                 document.add(new Paragraph(conteudo));
+            } finally {
+                document.close();
             }
             System.out.println("[Disco] PDF salvo em: " + destino.toAbsolutePath());
         } catch (DocumentException | IOException e) {
