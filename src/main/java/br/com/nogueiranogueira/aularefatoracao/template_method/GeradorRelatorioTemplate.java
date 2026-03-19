@@ -18,10 +18,9 @@ public abstract class GeradorRelatorioTemplate {
         System.out.println("[Banco] Executando SELECT * FROM analises_credito...");
         return List.of("123.456.789-00 - R$ 5000 - APROVADO", "987.654.321-11 - R$ 1000 - APROVADO");
     }
-    private void salvarArquivo(String conteudo) {
-        System.out.println("[Disco] Salvando ficheiro na rede...\n" + conteudo);
-    }
+
     // PASSOS VARIÁVEIS (Deixados para as subclasses implementarem)
+    protected abstract void salvarArquivo(String conteudo);
     protected abstract String formatarCabecalho();
     protected abstract String formatarCorpo(List<String> dados);
 }
