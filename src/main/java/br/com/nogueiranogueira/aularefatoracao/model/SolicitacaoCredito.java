@@ -23,6 +23,10 @@ public class SolicitacaoCredito {
     @Column(nullable = false)
     private String cliente;
 
+    @NotBlank(message = "Documento não pode ser vazio")
+    @Column(nullable = false)
+    private String documento;
+
     @NotNull(message = "Valor não pode ser nulo")
     @Positive(message = "Valor deve ser positivo")
     @Column(nullable = false)
@@ -51,6 +55,18 @@ public class SolicitacaoCredito {
 
     @Column(name = "data_solicitacao", nullable = false, updatable = false)
     private LocalDateTime dataSolicitacao;
+
+    public String getDocumento() {
+        return documento;
+    }
+
+    public Double getValor() {
+        return valor;
+    }
+
+    public Integer getScore() {
+        return score;
+    }
 
     @PrePersist
     protected void onCreate() {

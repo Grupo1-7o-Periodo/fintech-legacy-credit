@@ -1,5 +1,6 @@
 package br.com.nogueiranogueira.aularefatoracao.service;
 
+import br.com.nogueiranogueira.aularefatoracao.model.SolicitacaoCredito;
 import br.com.nogueiranogueira.aularefatoracao.model.dto.SolicitacaoCreditoRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,8 +19,8 @@ public class AnaliseCreditoService {
         this.processadorCreditoService = processadorCreditoService;
     }
 
-    public void processarLote(List<SolicitacaoCreditoRequest> solicitacoes) {
+    public List<SolicitacaoCredito> processarLote(List<SolicitacaoCreditoRequest> solicitacoes) {
         log.info("Iniciando análise de {} solicitação(ões)", solicitacoes.size());
-        processadorCreditoService.processarLote(solicitacoes);
+        return processadorCreditoService.processarLote(solicitacoes);
     }
 }

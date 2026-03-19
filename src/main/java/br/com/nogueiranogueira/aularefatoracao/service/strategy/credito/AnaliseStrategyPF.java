@@ -3,12 +3,9 @@ package br.com.nogueiranogueira.aularefatoracao.service.strategy.credito;
 import br.com.nogueiranogueira.aularefatoracao.model.dto.SolicitacaoCreditoRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
-
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 
-@Component
 public class AnaliseStrategyPF implements AnaliseStrategy {
 
     private static final Logger log = LoggerFactory.getLogger(AnaliseStrategyPF.class);

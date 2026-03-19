@@ -8,5 +8,4 @@ public record SolicitacaoCreditoRecord(
         int score,
         boolean negativado,
         TipoConta tipo
-) {
-}
+) {}

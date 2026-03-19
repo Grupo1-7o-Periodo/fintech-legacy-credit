@@ -1,5 +1,6 @@
 package br.com.nogueiranogueira.aularefatoracao.controller;
 
+import br.com.nogueiranogueira.aularefatoracao.model.SolicitacaoCredito;
 import br.com.nogueiranogueira.aularefatoracao.model.dto.SolicitacaoCreditoRequest;
 import br.com.nogueiranogueira.aularefatoracao.service.AnaliseCreditoService;
 import org.slf4j.Logger;
@@ -28,11 +29,12 @@ public class SolicitacaoCreditoController {
         log.info("Recebida requisição para analisar {} solicitação(ões)", solicitacoes.size());
 
         try {
-            analiseCreditoService.processarLote(solicitacoes);
+            List<SolicitacaoCredito> resultados = analiseCreditoService.processarLote(solicitacoes);
 
             Map<String, Object> response = new HashMap<>();
             response.put("mensagem", "Solicitações processadas com sucesso");
-            response.put("total", solicitacoes.size());
+            response.put("total", resultados.size());
+            response.put("resultados", resultados);
 
             return ResponseEntity.ok(response);
         } catch (Exception e) {
@@ -51,5 +53,4 @@ public class SolicitacaoCreditoController {
         response.put("mensagem", "Aplicação funcionando corretamente");
         return ResponseEntity.ok(response);
     }
-
 }
