@@ -1,7 +1,10 @@
 package br.com.nogueiranogueira.aularefatoracao.service;
 
+import br.com.nogueiranogueira.aularefatoracao.adapter.ServicoAnaliseRisco;
 import br.com.nogueiranogueira.aularefatoracao.dto.SolicitacaoCreditoRequest;
 import br.com.nogueiranogueira.aularefatoracao.factory.AnaliseCreditoFactory;
+import br.com.nogueiranogueira.aularefatoracao.factory.ServicoAnaliseRiscoFactory;
+import br.com.nogueiranogueira.aularefatoracao.model.SolicitacaoCredito;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -17,7 +20,12 @@ public class ProcessadorCreditoService {
 
     public boolean processarIndividual(SolicitacaoCreditoRequest solicitacao) {
         log.info("Consultando Bureau de Crédito Externo para: {}", solicitacao.cliente());
-        consultarBureauExterno();
+        ServicoAnaliseRisco servicoExterno = ServicoAnaliseRiscoFactory.obterAdapter(solicitacao.tipoConta());
+        boolean aprovadoExterno = servicoExterno.avaliarCredito(mapearParaModelo(solicitacao));
+        if (!aprovadoExterno) {
+            log.warn("Reprovado pelo serviço externo (documento ou risco): {}", solicitacao.documento());
+            return false;
+        }
 
         return AnaliseCreditoFactory.obterEstrategia(solicitacao.tipoConta()).analisar(solicitacao);
     }
@@ -29,12 +37,15 @@ public class ProcessadorCreditoService {
         }
     }
 
-    private void consultarBureauExterno() {
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            log.error("Consulta ao bureau interrompida", e);
-        }
+    private SolicitacaoCredito mapearParaModelo(SolicitacaoCreditoRequest request) {
+        SolicitacaoCredito solicitacao = new SolicitacaoCredito();
+        solicitacao.setCliente(request.cliente());
+        solicitacao.setDocumento(request.documento());
+        solicitacao.setValor(request.valor());
+        solicitacao.setScore(request.score());
+        solicitacao.setNegativado(request.negativado());
+        solicitacao.setTipoConta(request.tipoConta().name());
+        solicitacao.setAprovado(Boolean.FALSE);
+        return solicitacao;
     }
 }

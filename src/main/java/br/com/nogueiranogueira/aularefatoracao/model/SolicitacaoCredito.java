@@ -34,6 +34,11 @@ public class SolicitacaoCredito {
     @Column(nullable = false)
     private Integer score;
 
+    @NotBlank(message = "Documento não pode ser vazio")
+    @Pattern(regexp = "\\d{11}|\\d{14}", message = "Documento deve ser CPF (11 dígitos) ou CNPJ (14 dígitos)")
+    @Column(nullable = false, length = 14)
+    private String documento;
+
     @NotNull(message = "Status de negativação não pode ser nulo")
     @Column(nullable = false)
     private Boolean negativado;
@@ -57,4 +62,3 @@ public class SolicitacaoCredito {
         dataSolicitacao = LocalDateTime.now();
     }
 }
-
