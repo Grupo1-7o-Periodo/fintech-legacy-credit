@@ -3,7 +3,7 @@ package br.com.nogueiranogueira.aularefatoracao.service.strategy.validacao;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ValidadorCPF extends ValidadorDocumentoStrategy {
+public final class ValidadorCPF extends ValidadorDocumentoStrategy {
 
     @Override
     protected boolean validarFormato(String documento) {

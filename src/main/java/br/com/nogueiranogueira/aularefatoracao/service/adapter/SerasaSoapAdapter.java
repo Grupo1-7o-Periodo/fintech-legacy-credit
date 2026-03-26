@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SerasaSoapAdapter implements ServicoAnaliseRiscoExterno {
+public final class SerasaSoapAdapter implements ServicoAnaliseRiscoExterno {
 
     private static final Logger log = LoggerFactory.getLogger(SerasaSoapAdapter.class);
 

@@ -11,8 +11,6 @@ public class AnaliseCreditoFactory {
         return switch (tipo) {
             case PF -> new AnaliseStrategyPF();
             case PJ -> new AnaliseStrategyPJ();
-
-            default -> throw new IllegalArgumentException("Tipo de conta não suportado: " + tipo);
         };
     }
 }

@@ -11,7 +11,6 @@ public class ValidadorDocumentoFactory {
         return switch (tipo) {
             case PF -> new ValidadorCPF();
             case PJ -> new ValidadorCNPJ();
-            default -> throw new IllegalArgumentException("Tipo de conta nao suportado: " + tipo);
         };
     }
 }

@@ -3,7 +3,7 @@ package br.com.nogueiranogueira.aularefatoracao.service.strategy.validacao;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ValidadorCNPJ extends ValidadorDocumentoStrategy {
+public final class ValidadorCNPJ extends ValidadorDocumentoStrategy {
 
     @Override
     protected boolean validarFormato(String documento) {

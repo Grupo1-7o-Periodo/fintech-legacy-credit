@@ -1,6 +1,6 @@
 package br.com.nogueiranogueira.aularefatoracao.service.strategy.validacao;
 
-public abstract class ValidadorDocumentoStrategy {
+public abstract sealed class ValidadorDocumentoStrategy permits ValidadorCPF, ValidadorCNPJ {
 
     public final boolean validar(String documento) {
         String documentoLimpo = limparDocumento(documento);

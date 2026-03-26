@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
-public class PagamentoPixStrategy implements PagamentoStrategy {
+public final class PagamentoPixStrategy implements PagamentoStrategy {
 
     private static final Logger log = LoggerFactory.getLogger(PagamentoPixStrategy.class);
 

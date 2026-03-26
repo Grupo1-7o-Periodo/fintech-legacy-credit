@@ -8,7 +8,7 @@ import br.com.nogueiranogueira.aularefatoracao.dto.SolicitacaoCreditoRequest;
 import br.com.nogueiranogueira.aularefatoracao.dto.TipoConta;
 
 @Component
-public class AnaliseStrategyPJ implements AnaliseStrategy {
+public final class AnaliseStrategyPJ implements AnaliseStrategy {
 
     private static final Logger log = LoggerFactory.getLogger(AnaliseStrategyPJ.class);
 

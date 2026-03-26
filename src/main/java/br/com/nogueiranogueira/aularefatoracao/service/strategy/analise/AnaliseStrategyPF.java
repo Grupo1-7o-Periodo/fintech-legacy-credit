@@ -11,7 +11,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 
 @Component
-public class AnaliseStrategyPF implements AnaliseStrategy {
+public final class AnaliseStrategyPF implements AnaliseStrategy {
 
     private static final Logger log = LoggerFactory.getLogger(AnaliseStrategyPF.class);
 

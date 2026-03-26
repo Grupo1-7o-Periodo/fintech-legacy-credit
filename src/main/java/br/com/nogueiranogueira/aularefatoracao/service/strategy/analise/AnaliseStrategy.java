@@ -2,7 +2,7 @@ package br.com.nogueiranogueira.aularefatoracao.service.strategy.analise;
 
 import br.com.nogueiranogueira.aularefatoracao.dto.SolicitacaoCreditoRequest;
 
-public interface AnaliseStrategy {
+public sealed interface AnaliseStrategy permits AnaliseStrategyPF, AnaliseStrategyPJ {
 
     boolean elegivel(SolicitacaoCreditoRequest solicitacao);
 
