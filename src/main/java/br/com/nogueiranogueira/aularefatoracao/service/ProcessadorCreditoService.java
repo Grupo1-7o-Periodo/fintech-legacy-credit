@@ -2,7 +2,7 @@ package br.com.nogueiranogueira.aularefatoracao.service;
 
 import br.com.nogueiranogueira.aularefatoracao.adapter.ServicoAnaliseRisco;
 import br.com.nogueiranogueira.aularefatoracao.dto.SolicitacaoCreditoRequest;
-import br.com.nogueiranogueira.aularefatoracao.factory.AnaliseCreditoFactory;
+import br.com.nogueiranogueira.aularefatoracao.factory.AnaliseStrategyFactory;
 import br.com.nogueiranogueira.aularefatoracao.factory.ServicoAnaliseRiscoFactory;
 import br.com.nogueiranogueira.aularefatoracao.model.SolicitacaoCredito;
 import org.slf4j.Logger;
@@ -17,6 +17,7 @@ import java.util.concurrent.Executors;
 public class ProcessadorCreditoService {
 
     private static final Logger log = LoggerFactory.getLogger(ProcessadorCreditoService.class);
+    private final AnaliseStrategyFactory analiseStrategyFactory = new AnaliseStrategyFactory();
 
     public boolean processarIndividual(SolicitacaoCreditoRequest solicitacao) {
         log.info("Consultando Bureau de Crédito Externo para: {}", solicitacao.cliente());
@@ -27,7 +28,7 @@ public class ProcessadorCreditoService {
             return false;
         }
 
-        return AnaliseCreditoFactory.obterEstrategia(solicitacao.tipoConta()).analisar(solicitacao);
+        return analiseStrategyFactory.obterEstrategia(solicitacao.documento()).analisar(solicitacao);
     }
 
     public void processarLote(List<SolicitacaoCreditoRequest> solicitacoes) {
@@ -40,7 +41,7 @@ public class ProcessadorCreditoService {
     private SolicitacaoCredito mapearParaModelo(SolicitacaoCreditoRequest request) {
         SolicitacaoCredito solicitacao = new SolicitacaoCredito();
         solicitacao.setCliente(request.cliente());
-        solicitacao.setDocumento(request.documento());
+        solicitacao.setDocumento(request.documento().valor());
         solicitacao.setValor(request.valor());
         solicitacao.setScore(request.score());
         solicitacao.setNegativado(request.negativado());
