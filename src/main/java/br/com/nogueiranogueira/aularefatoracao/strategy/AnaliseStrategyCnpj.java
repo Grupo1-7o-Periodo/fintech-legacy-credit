@@ -6,9 +6,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AnaliseStrategyPJ implements AnaliseStrategy {
+public final class AnaliseStrategyCnpj implements AnaliseStrategy {
 
-    private static final Logger log = LoggerFactory.getLogger(AnaliseStrategyPJ.class);
+    private static final Logger log = LoggerFactory.getLogger(AnaliseStrategyCnpj.class);
 
     private static final int SCORE_MINIMO = 500;
     private static final int SCORE_ALTO_VALOR = 700;
@@ -17,21 +17,21 @@ public class AnaliseStrategyPJ implements AnaliseStrategy {
     @Override
     public boolean analisar(SolicitacaoCreditoRequest solicitacao) {
         if (solicitacao.negativado()) {
-            log.warn("Reprovado PJ: cliente negativado");
+            log.warn("Reprovado CNPJ: cliente negativado");
             return false;
         }
 
         if (solicitacao.score() <= SCORE_MINIMO) {
-            log.warn("Reprovado PJ: score baixo ({})", solicitacao.score());
+            log.warn("Reprovado CNPJ: score baixo ({})", solicitacao.score());
             return false;
         }
 
         if (solicitacao.valor() > LIMITE_ALTO_VALOR && solicitacao.score() < SCORE_ALTO_VALOR) {
-            log.warn("Reprovado PJ: risco alto para valor elevado com score insuficiente");
+            log.warn("Reprovado CNPJ: risco alto para valor elevado com score insuficiente");
             return false;
         }
 
-        log.info("Aprovado PJ: {}", solicitacao.cliente());
+        log.info("Aprovado CNPJ: {}", solicitacao.cliente());
         return true;
     }
 }

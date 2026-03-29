@@ -9,9 +9,9 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 
 @Component
-public class AnaliseStrategyPF implements AnaliseStrategy {
+public final class AnaliseStrategyCpf implements AnaliseStrategy {
 
-    private static final Logger log = LoggerFactory.getLogger(AnaliseStrategyPF.class);
+    private static final Logger log = LoggerFactory.getLogger(AnaliseStrategyCpf.class);
 
     private static final int SCORE_MINIMO = 500;
     private static final int SCORE_ALTO_VALOR = 800;
@@ -20,26 +20,26 @@ public class AnaliseStrategyPF implements AnaliseStrategy {
     @Override
     public boolean analisar(SolicitacaoCreditoRequest solicitacao) {
         if (solicitacao.negativado()) {
-            log.warn("Reprovado PF: cliente negativado");
+            log.warn("Reprovado CPF: cliente negativado");
             return false;
         }
 
         if (solicitacao.score() <= SCORE_MINIMO) {
-            log.warn("Reprovado PF: score baixo ({})", solicitacao.score());
+            log.warn("Reprovado CPF: score baixo ({})", solicitacao.score());
             return false;
         }
 
         if (solicitacao.valor() > LIMITE_ALTO_VALOR && solicitacao.score() < SCORE_ALTO_VALOR) {
-            log.warn("Reprovado PF: valor alto com score médio");
+            log.warn("Reprovado CPF: valor alto com score médio");
             return false;
         }
 
         if (isFimDeSemana()) {
-            log.warn("Reprovado PF: aprovação manual necessária no fim de semana");
+            log.warn("Reprovado CPF: aprovação manual necessária no fim de semana");
             return false;
         }
 
-        log.info("Aprovado PF: {}", solicitacao.cliente());
+        log.info("Aprovado CPF: {}", solicitacao.cliente());
         return true;
     }
 
