@@ -6,12 +6,7 @@ import br.com.nogueiranogueira.aularefatoracao.strategy.AnaliseStrategyCpf;
 import br.com.nogueiranogueira.aularefatoracao.strategy.AnaliseStrategyCurp;
 import br.com.nogueiranogueira.aularefatoracao.strategy.AnaliseStrategyNif;
 import br.com.nogueiranogueira.aularefatoracao.strategy.AnaliseStrategySsn;
-import br.com.nogueiranogueira.aularefatoracao.strategy.documento.Cnpj;
-import br.com.nogueiranogueira.aularefatoracao.strategy.documento.Cpf;
-import br.com.nogueiranogueira.aularefatoracao.strategy.documento.Curp;
-import br.com.nogueiranogueira.aularefatoracao.strategy.documento.Documento;
-import br.com.nogueiranogueira.aularefatoracao.strategy.documento.Ssn;
-import br.com.nogueiranogueira.aularefatoracao.strategy.documento.Nif;
+import org.example.documento.interfaces.*;
 
 public class AnaliseStrategyFactory {
     public AnaliseStrategy obterEstrategia(Documento documento) {

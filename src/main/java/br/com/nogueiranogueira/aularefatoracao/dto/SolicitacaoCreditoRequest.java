@@ -1,6 +1,6 @@
 package br.com.nogueiranogueira.aularefatoracao.dto;
 
-import br.com.nogueiranogueira.aularefatoracao.strategy.documento.Documento;
+import org.example.documento.interfaces.Documento;
 
 public record SolicitacaoCreditoRequest(
         String cliente,
