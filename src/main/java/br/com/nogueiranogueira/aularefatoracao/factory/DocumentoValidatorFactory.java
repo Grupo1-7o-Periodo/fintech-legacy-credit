@@ -1,9 +1,9 @@
 package br.com.nogueiranogueira.aularefatoracao.factory;
 
 import br.com.nogueiranogueira.aularefatoracao.dto.TipoConta;
-import br.com.nogueiranogueira.aularefatoracao.strategy.documento.CnpjValidatorStrategy;
-import br.com.nogueiranogueira.aularefatoracao.strategy.documento.CpfValidatorStrategy;
-import br.com.nogueiranogueira.aularefatoracao.strategy.documento.DocumentoValidatorStrategy;
+
+import org.example.documento.interfaces.DocumentoValidatorStrategy;
+import org.example.documento.strategies.*;
 
 public class DocumentoValidatorFactory {
     public DocumentoValidatorStrategy obterValidador(TipoConta tipoConta) {
