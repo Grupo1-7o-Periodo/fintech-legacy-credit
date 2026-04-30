@@ -3,7 +3,7 @@ package br.com.nogueiranogueira.aularefatoracao.adapter;
 import br.com.nogueiranogueira.aularefatoracao.dto.TipoConta;
 import br.com.nogueiranogueira.aularefatoracao.factory.DocumentoValidatorFactory;
 import br.com.nogueiranogueira.aularefatoracao.model.SolicitacaoCredito;
-import br.com.nogueiranogueira.aularefatoracao.strategy.documento.DocumentoValidatorStrategy;
+import org.example.documento.interfaces.DocumentoValidatorStrategy;
 
 public abstract class SerasaAdapterTemplate implements ServicoAnaliseRisco {
 
