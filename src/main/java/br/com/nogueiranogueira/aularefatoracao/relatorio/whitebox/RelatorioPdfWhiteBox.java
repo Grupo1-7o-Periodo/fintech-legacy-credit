@@ -41,12 +41,11 @@ public class RelatorioPdfWhiteBox extends ExportadorRelatorioWhiteBox {
         Path destino = Paths.get("target", "relatorios", "relatorio.pdf");
         try {
             Files.createDirectories(destino.getParent());
-            Document document = new Document();
             try (FileOutputStream fos = new FileOutputStream(destino.toFile())) {
+                Document document = new Document();
                 PdfWriter.getInstance(document, fos);
                 document.open();
                 document.add(new Paragraph(conteudo));
-            } finally {
                 document.close();
             }
             System.out.println("[Disco] PDF salvo em: " + destino.toAbsolutePath());
