@@ -1,24 +1,36 @@
-package br.com.nogueiranogueira.aularefatoracao.template_method;
+package br.com.nogueiranogueira.aularefatoracao.relatorio.whitebox;
+
+import org.grupo01.relatorio.model.DadosRelatorio;
+import org.grupo01.relatorio.whitebox.ExportadorRelatorioWhiteBox;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 
-public class RelatorioCSV extends GeradorRelatorioTemplate {
+/**
+ * Extensão White-box para CSV: herda do framework e sobrescreve os hooks.
+ */
+public class RelatorioCsvWhiteBox extends ExportadorRelatorioWhiteBox {
+
     @Override
-    protected String formatarCabecalho() {
+    protected String formatarCabecalho(DadosRelatorio dados) {
         return "documento;valor;status\n";
     }
 
     @Override
-    protected String formatarCorpo(List<String> dados) {
+    protected String formatarCorpo(DadosRelatorio dados) {
         StringBuilder sb = new StringBuilder();
-        for (String linha : dados) {
+        for (String linha : dados.linhas()) {
             sb.append(converterParaCsv(linha)).append('\n');
         }
         return sb.toString();
+    }
+
+    @Override
+    protected String formatarRodape(DadosRelatorio dados) {
+        // CSV não tem rodapé textual: sobrescreve o hook default do framework.
+        return "";
     }
 
     @Override

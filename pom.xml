@@ -113,6 +113,12 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.grupo-01</groupId>
+            <artifactId>framework-library</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
         <!-- PDF generation (AGPL) -->
         <dependency>
             <groupId>com.github.librepdf</groupId>
